@@ -9,7 +9,7 @@ router.get('/passing', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  Test.findAll()
+  Test.findAll({ include: { all: true } })
     .then(tests => res.json(tests))
     .catch(next);
 });
@@ -23,8 +23,8 @@ router.get('/:id', function(req, res, next) {
 router.get('/subject/:subject', function(req, res, next) {
   Test.findAll({
     where: {
-      subject: req.params.subject
-    }
+      subject: req.params.subject,
+    },
   })
     .then(test => res.json(test))
     .catch(next);
@@ -46,8 +46,8 @@ router.post('/student/:studentId', function(req, res, next) {
 router.delete('/:id', function(req, res, next) {
   Test.destroy({
     where: {
-      id: req.params.id
-    }
+      id: req.params.id,
+    },
   })
     .then(() => res.sendStatus(204))
     .catch(next);

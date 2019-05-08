@@ -11,7 +11,9 @@ router.get('/:studentId', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  Student.findAll().then(students => res.json(students));
+  Student.findAll({ include: { all: true } }).then(students =>
+    res.json(students)
+  );
 });
 
 router.post('/', function(req, res, next) {
@@ -23,9 +25,9 @@ router.post('/', function(req, res, next) {
 router.put('/:id', function(req, res, next) {
   Student.update(req.body, {
     where: {
-      id: req.params.id
+      id: req.params.id,
     },
-    returning: true
+    returning: true,
   })
     .then(test => res.status(201).json(test[1][0]))
     .catch(next);
@@ -34,8 +36,8 @@ router.put('/:id', function(req, res, next) {
 router.delete('/:id', function(req, res, next) {
   Student.destroy({
     where: {
-      id: req.params.id
-    }
+      id: req.params.id,
+    },
   })
     .then(() => {
       res.sendStatus(204);
