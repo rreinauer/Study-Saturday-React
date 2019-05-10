@@ -3,9 +3,9 @@ import React from 'react';
 const Tests = props => {
   const tests = props.tests;
   return (
-    <table>
+    <table id="tests">
       <tbody>
-        <tr>
+        <tr align="left">
           <th>Subject:</th>
           <th>Grade:</th>
         </tr>
